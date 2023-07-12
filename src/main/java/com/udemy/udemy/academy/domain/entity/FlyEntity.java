@@ -11,7 +11,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,8 +24,7 @@ import lombok.ToString;
 @Data
 @Builder
 
-@Entity
-@Table(name = "fly")
+@Entity (name = "fly")
 public class FlyEntity {
 
   @Id
@@ -63,6 +61,6 @@ public class FlyEntity {
       fetch = FetchType.EAGER,
       orphanRemoval = true
   )
-  private List<TicketEntity>ticketEntities;
+  private List<TicketEntity>tickets;
 
 }
