@@ -1,14 +1,16 @@
 package com.udemy.udemy.academy.domain.entity;
 
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import java.util.Set;
+import jakarta.persistence.Table;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,26 +23,36 @@ import lombok.ToString;
 @Data
 @Builder
 
-@Entity(name = "hotel")
-public class HotelEntity {
+@Entity
+@Table(name = "tour")
+
+public class TourEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-
-  private String name;
-  private String address;
-  private int rating;
-  private float price;
+  @ManyToOne
+  @JoinColumn(name = "id_customer")
+  private CustomerEntity customer;
 
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
   @OneToMany(
+      mappedBy = "tour",
       cascade = CascadeType.ALL,
       fetch = FetchType.EAGER,
-      orphanRemoval = true,
-      mappedBy = "hotel"
+      orphanRemoval = true
   )
-  private Set<ReservationEntity> reservation;
+
+  private List<TicketEntity>ticketEntities;
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
+  @OneToMany(
+      mappedBy = "tour",
+      cascade = CascadeType.ALL,
+      fetch = FetchType.EAGER,
+      orphanRemoval = true
+  )
+  private  List<ReservationEntity>reservationEntities;
 
 }
