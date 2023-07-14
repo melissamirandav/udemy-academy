@@ -23,5 +23,7 @@ public interface FlyRepository extends JpaRepository<FlyEntity, Long> {
 
   @Query("select f from fly f join fetch f.tickets t where t.id = :id")
   Optional<FlyEntity>findByTicketId(UUID id);
+  //Optional<FlyEntity>findByTickestId(UUID id);
+
 
 }
